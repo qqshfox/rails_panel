@@ -5,6 +5,7 @@ function TransactionsCtrl($scope) {
   $scope.viewsMap = {};     // {transactionKey: [{...}, {...}], ... }
   $scope.paramsMap = {};     // {transactionKey: [{...}, {...}], ... }
   $scope.sqlsMap = {};      // {transactionKey: [{...}, {...}], ... }
+  $scope.mopedMap = {};      // {transactionKey: [{...}, {...}], ... }
   
   $scope.requests = function() {
     return $scope.transactionKeys.map(function(n) {
@@ -23,6 +24,7 @@ function TransactionsCtrl($scope) {
     $scope.viewsMap = {};
     $scope.paramsMap = {};
     $scope.sqlsMap = {};
+    $scope.mopedMap = {};
     $scope.activeKey = null;
   }
 
@@ -42,6 +44,10 @@ function TransactionsCtrl($scope) {
     return $scope.exceptionCallsMap[$scope.activeKey];
   }
 
+  $scope.activeMoped = function() {
+    return $scope.mopedMap[$scope.activeKey];
+  }
+
   $scope.setActive = function(transactionId) {
     $scope.activeKey = transactionId;
   }
@@ -55,6 +61,7 @@ function TransactionsCtrl($scope) {
   }
 
   $scope.parseNotification = function(key, data) {
+    $scope.setActive(key);
     switch(data.name) {
     case "process_action.action_controller":
       data.durationRounded = function() {
@@ -74,7 +81,6 @@ function TransactionsCtrl($scope) {
         $scope.pushToMap($scope.paramsMap, key, {name:n, value:data.payload.params[n]});
       });
       $scope.transactionKeys.push(key);
-      $scope.setActive(key);
       break;
     case "process_action.action_controller.exception":
       $scope.pushToMap($scope.exceptionCallsMap, key, data);
@@ -89,6 +95,9 @@ function TransactionsCtrl($scope) {
       if (data.payload.name !== "SCHEMA") {
         $scope.pushToMap($scope.sqlsMap, key, data);
       }
+      break;
+    case "logging.moped":
+      $scope.pushToMap($scope.mopedMap, key, data);
       break;
     default:
       console.log('Notification not supported:' + data.name);

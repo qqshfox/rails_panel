@@ -26,6 +26,7 @@
               <th class='method'>Method</th>
               <th class='format'>Format</th>
               <th class='db'>DB</th>
+              <th class='moped'>Moped</th>
               <th class='view'>View</th>
               <th class='other'>Other</th>
               <th class='duration'>Total</th>
@@ -40,6 +41,7 @@
                 <td class='method'>{{request.payload.method}}</td>
                 <td class='format'>{{request.payload.format}}</td>
                 <td class='db'>{{request.payload.dbRuntimeRounded}}</td>
+                <td class='moped'>{{request.payload.mopedRuntimeRounded}}</td>
                 <td class='view'>{{request.payload.viewRuntimeRounded}}</td>
                 <td class='other'>{{request.payload.otherRuntimeRounded}}</td>
                 <td class='duration'><strong>{{request.durationRounded}}</strong></td>
@@ -51,6 +53,7 @@
                 <td class='method'></td>
                 <td class='format'></td>
                 <td class='db'></td>
+                <td class='moped'></td>
                 <td class='view'></td>
                 <td class='other'></td>
                 <td class='duration'></td>
@@ -70,6 +73,9 @@
                 </li>
                 <li class="tabbed-pane-header-tab">
                   <a href="#tab-db" class="tabbed-pane-header-tab-title">DB</a>
+                </li>
+                <li class="tabbed-pane-header-tab">
+                  <a href="#tab-moped" class="tabbed-pane-header-tab-title">Moped</a>
                 </li>
                 <li class="tabbed-pane-header-tab">
                   <a href="#tab-views" class="tabbed-pane-header-tab-title">View</a>
@@ -115,6 +121,25 @@
                 </tbody>
               </table>
               <div class="number-of-queries">Number of queries: {{activeSqls().length}}</div>
+            </div>
+            <div id="tab-moped">
+              <table class="stupidtable" id="moped">
+                <thead>
+                  <tr>
+                    <th data-sort="string">Operation</th>
+                    <th data-sort="float" class="duration">Duration</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="action in activeMoped()">
+                    <td ng-repeat="operation in action.payload.operations">
+                      <div>{{operation}}</div>
+                    </td>
+                    <td class="duration">{{action.duration | number:3}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="number-of-queries">Number of queries: {{activeMoped().length}}</div>
             </div>
             <div id="tab-views">
               <table class="stupidtable" id="views">
