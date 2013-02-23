@@ -4,6 +4,7 @@ RailsPanel
 RailsPanel is a Chrome extension for Rails development that will end your tailing of development.log. Have all information about your Rails app requests in the browser - in the Developer Tools panel. Provides insight to db/rendering/total times, parameter list, rendered views and more. 
 
 ![](https://dl.dropbox.com/u/69357609/Captured/WOvkF.png)
+![](https://dl.dropbox.com/u/54525886/rails_panel_moped.png)
 
 ## Installation
 

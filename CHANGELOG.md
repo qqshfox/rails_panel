@@ -1,3 +1,6 @@
+## 2013-02-22 RailsPanel **Not Released Yet**
+* Moped support (requires [moped_rails_logger](https://github.com/qqshfox/moped_rails_logger))
+
 ## 2013-01-15 RailsPanel 0.1.2
 * Fix clear button
 * Responsive design
