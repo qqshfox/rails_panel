@@ -70,6 +70,9 @@ function TransactionsCtrl($scope) {
       data.payload.dbRuntimeRounded = function() {
         return data.payload.db_runtime ? data.payload.db_runtime.round() : 0;
       }();
+      data.payload.mopedRuntimeRounded = function() {
+        return data.payload.moped_runtime ? data.payload.moped_runtime.round() : 0;
+      }();
       data.payload.viewRuntimeRounded = function() {
         return data.payload.view_runtime ? data.payload.view_runtime.round() : 0;
       }();
