@@ -1,3 +1,5 @@
+require 'tempfile'
+
 module MetaRequest
   class Storage
     attr_reader :key
@@ -7,31 +9,25 @@ module MetaRequest
     end
 
     def write(value)
-      FileUtils.mkdir_p dir_path
-      File.open(json_file, 'w') { |file| file.write(value) }
-      maintain_file_pool(10)
+      tempfiles[json_file].write(value)
     end
 
     def read
-      File.read(json_file)
-    end
-    
-    private
-
-    def maintain_file_pool(size)
-      files = Dir["#{dir_path}/*.json"]
-      files = files.sort_by { |c| -File.stat(c).ctime.to_i }
-      (files[size..-1] || []).each do |file|
-        FileUtils.rm(file)
+      if tempfiles.has_key?(json_file)
+        tempfile = tempfiles[json_file]
+        tempfile.rewind
+        tempfile.read
       end
     end
 
-    def json_file
-      File.join(dir_path, "#{key}.json")
+    private
+
+    def tempfiles
+      @@tempfiles ||= Hash.new { |hash, key| hash[key] = Tempfile.new(key) }
     end
 
-    def dir_path
-      File.join(Dir.pwd, 'tmp', 'data', 'meta_request')
+    def json_file
+      "#{key}.json"
     end
   end
 end

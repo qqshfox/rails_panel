@@ -1,5 +1,16 @@
+## 2013-02-25 meta_request **Not Released Yet**
+* Speedup Storage#write by using `tempfile`
+
 ## 2013-02-22 RailsPanel **Not Released Yet**
 * Moped support (requires [moped_rails_logger](https://github.com/qqshfox/moped_rails_logger))
+
+## 2013-02-24 meta_request 0.2.2
+* fix #32 - stop crashing when trying to json encode closed tempfile params
+* relax dependency from rails to railties
+* Handle exceptions prior to rails 3.2 
+
+## 2013-02-24 RailsPanel 0.1.3
+* emacs editor option
 
 ## 2013-01-15 RailsPanel 0.1.2
 * Fix clear button
