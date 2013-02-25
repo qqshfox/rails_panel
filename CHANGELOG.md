@@ -1,3 +1,6 @@
+## 2013-02-25 meta_request **Not Released Yet**
+* Speedup Storage#write by using `tempfile`
+
 ## 2013-02-24 meta_request 0.2.2
 * fix #32 - stop crashing when trying to json encode closed tempfile params
 * relax dependency from rails to railties
