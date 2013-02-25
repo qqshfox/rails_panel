@@ -1,0 +1,3 @@
+[submodule "meta_request"]
+	path = meta_request
+	url = https://github.com/qqshfox/meta_request.git
